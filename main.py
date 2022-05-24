@@ -11,8 +11,15 @@ def linhas(num=0): #Linhas
   print('\033[1;33m=\033[m'*num)
   print()
 
+def criarTabuleiro(): #Criar tabuleiro
+  tabuleiro = ['\033[1;36;~\033[m'] * nLinhas
+  for linha in range(nLinhas):
+    tabuleiro[linha] = ['\033[1;36;44m~\033[m'] * nColunas
+  return tabuleiro
+
 def mostrarTabuleiro(tabuleiro): #Mostrar tabuleiro
   # sleep(3)
+
   for linha in range(nLinhas):
     for coluna in range(nColunas):
       print(f'[{tabuleiro[linha][coluna]}]', end= ' ')
@@ -83,7 +90,6 @@ def salvarPosicoes(barco): #Salvar as posições
 posicoes_pa = []
 posicoes_c = []
 posicoes_f = []
-posicoes = []
 temporaria = []
 
 txt = '              BEM VINDO AO BATALHA NAVAL              '
@@ -124,11 +130,10 @@ linhas(60)
 
 #Criação do tabuleiro
 nLinhas = nColunas = 15
-tabuleiro = ['\033[1;36;44m~\033[m'] * nLinhas
-for linha in range(nLinhas):
-  tabuleiro[linha] = ['\033[1;36;44m~\033[m'] * nColunas
+tabuleiro = criarTabuleiro()
+tabuleiro2 = criarTabuleiro()
 
-#começar
+#j1
 txt = '''                       JOGADOR 1                       '''
 escreva(txt)
 
@@ -146,3 +151,22 @@ barcoTabuleiro(1,5,"Cruzador")
 #Fragatas
 print()
 barcoTabuleiro(1,6,"Fragata")
+
+print(f'''\n Essas são suas posições:
+Porta-Aviões: {posicoes_pa} 
+Cruzadores:   {posicoes_c}
+Fragatas:     {posicoes_f}''')
+
+#sleep(5) #adcionar um for para contaagem regressiva
+
+txt = '''                       JOGADOR 2                       '''
+escreva(txt)
+
+mostrarTabuleiro(tabuleiro2)
+
+escolhaLinha = int(input('Linha que você quer jogar a bomba: '))
+escolhaColuna = int(input('Coluna que você quer jogar a bomba: '))
+
+for cont, barco in enumerate(posicoes_pa):
+  print(f'\nBarco {cont}:{posicoes_pa[cont]}')
+  
