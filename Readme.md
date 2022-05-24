@@ -1,4 +1,4 @@
-<div align="center"> <h1>BATALHA NAVAL</h1> (em processo) </div>
+<div align="center"> <h1>BATALHA NAVAL (em processo)</h1> </div>
 
 <div align="center"> 
     <h2>- Jogador 1 x Jogador 2<h2>
