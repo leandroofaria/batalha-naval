@@ -1,8 +1,9 @@
-BATALHA NAVAL (em processo)
+<div allign=center> <h1>BATALHA NAVAL</h1> (em processo) </div>
 
-- Jogador 1 x Jogador 2 <br>
-O jogador 1 irá escolher as posições dos navios e o jogador 2 tentará acertá-lo!
-
+<div allign=center> 
+    <h2>- Jogador 1 x Jogador 2<h2>
+    <p>O jogador 1 irá escolher as posições dos navios e o jogador 2 tentará acertá-lo!<p>
+<div>
 - Tipos de Navios: <br>
  3x Porta-Aviões (4 partes) - 30 pontos após destruir
  4x Cruzadores   (3 partes) - 20 pontos após destruir
