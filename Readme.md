@@ -1,7 +1,7 @@
 <div align="center"> <h1>BATALHA NAVAL (em processo)</h1> </div>
 
 <div align="center"> 
-    <h2>- Jogador 1 x Jogador 2<h2>
+    <h2>- Jogador 1 x Jogador 2</h2>
     <p>O jogador 1 irá escolher as posições dos navios e o jogador 2 tentará acertá-lo!<p>
 </div>
 
