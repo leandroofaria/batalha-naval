@@ -18,22 +18,73 @@ def mostrarTabuleiro(tabuleiro): #Mostrar tabuleiro
       print(f'[{tabuleiro[linha][coluna]}]', end= ' ')
     print()
 
-def verificarLinha(barco):
-  global linha
-  while 0>linha or linha>16:
-    print('\033[1;31mOpção inválida! O máximo de linhas no tabuleiro são 15!\033[m')
-    linha = int(input(f'Insira a linha que irá o {cont}° {barco}: '))
-
-def verificarColuna(barco):
-  global coluna
-  while 0>coluna or coluna>16:
-    print('\033[1;31mOpção inválida! O máximo de colunas no tabuleiro são 15!\033[m')
-    coluna = int(input(f'Insira a coluna que irá o {cont}° Porta-Aviões: '))
+def barcoTabuleiro(inicio,fim,barco): #Escolher as posiçoes no tabuleiro
   print()
+  for cont in range(inicio,fim):
+    global linha
+    global coluna
+
+    linha = int(input(f'Insira a linha que irá o {cont}° {barco}: '))
+    verificarLinha(barco)
+
+    coluna = int(input(f'Insira a coluna que irá o {cont}° {barco}: '))
+    verificarColuna(barco)
+
+    salvarPosicoes(barco)
+
+    if barco == "Porta-Aviões":
+      tabuleiro[linha][coluna] = '\033[33mP\033[m'
+      tabuleiro[linha][coluna - 1] = '\033[33mP\033[m'
+      tabuleiro[linha][coluna + 1] = '\033[33mP\033[m'
+      tabuleiro[linha][coluna + 2] = '\033[33mP\033[m'
+
+    elif barco == "Cruzador":
+      tabuleiro[linha][coluna] = '\033[35mC\033[m'
+      tabuleiro[linha][coluna - 1] = '\033[35mC\033[m'
+      tabuleiro[linha][coluna + 1] = '\033[35mC\033[m'
+
+    elif barco == "Fragata":
+      tabuleiro[linha][coluna] = '\033[32mF\033[m'
+      #tabuleiro[linha][coluna - 1] = '\033[32;40mC\033[m'
+      tabuleiro[linha][coluna + 1] = '\033[32mF\033[m'
+
+  mostrarTabuleiro(tabuleiro)
+
+def verificarLinha(barco): #Ver se o input foi correto
+  global linha
+  while 0>linha or linha>15:
+    print('\033[1;31mOpção inválida! O máximo de linhas no tabuleiro são 15!\033[m')
+    linha = int(input(f'Insira a linha que irá o {barco}: '))
+
+def verificarColuna(barco): #Ver se o input foi correto
+  global coluna
+  while 0>coluna or coluna>15:
+    print('\033[1;31mOpção inválida! O máximo de colunas no tabuleiro são 15!\033[m')
+    coluna = int(input(f'Insira a coluna que irá o Porta-Aviões: '))
+
+def salvarPosicoes(barco): #Salvar as posições
+  if barco == "Porta-Aviões":
+    temporaria = [[linha, coluna],[linha, coluna-1],[linha, coluna+1],[linha, coluna+2]]
+    print(f'Posições: {temporaria}')
+    posicoes_pa.append(temporaria)
+    print()
+  elif barco == "Cruzador":
+    temporaria = [[linha, coluna],[linha, coluna-1],[linha, coluna+1]]
+    print(f'Posições: {temporaria}')
+    posicoes_c.append(temporaria)
+    print()
+  elif barco == "Fragata":
+    temporaria = [[linha, coluna],[linha, coluna+1]]
+    print(f'Posições: {temporaria}')
+    posicoes_f.append(temporaria)
+    print()
 
 #variaveis
-temporaria = []
+posicoes_pa = []
+posicoes_c = []
+posicoes_f = []
 posicoes = []
+temporaria = []
 
 txt = '              BEM VINDO AO BATALHA NAVAL              '
 escreva(txt) #Bem vindo
@@ -78,63 +129,20 @@ for linha in range(nLinhas):
   tabuleiro[linha] = ['\033[1;36;44m~\033[m'] * nColunas
 
 #começar
-txt = '''                     VAMOS COMEÇAR                     '''
+txt = '''                       JOGADOR 1                       '''
 escreva(txt)
 
 #Mostrar o tabuleiro na tela
 mostrarTabuleiro(tabuleiro)
 
-
 #porta aviões
 print()
-for cont in range(1,4):
-
-  linha = int(input(f'Insira a linha que irá o {cont}° Porta-Aviões: '))
-  barco = 'Porta-Aviões'
-  verificarLinha(barco)
-
-  coluna = int(input(f'Insira a coluna que irá o {cont}° Porta-Aviões: '))
-  barco = "Porta-Aviões"
-  verificarColuna(barco)
-    
-  tabuleiro[linha][coluna] = '\033[32mP\033[m'
-  tabuleiro[linha][coluna - 1] = '\033[32mP\033[m'
-  tabuleiro[linha][coluna + 1] = '\033[32mP\033[m'
-  tabuleiro[linha][coluna + 2] = '\033[32mP\033[m'
-
-mostrarTabuleiro(tabuleiro)
+barcoTabuleiro(1,4,"Porta-Aviões")
 
 #Cruzadores:
 print()
-for cont in range(1,5):
-
-  linha = int(input(f'Insira a linha que irá o {cont}° Cruzador: '))
-  barco = "Cruzadores"
-  verificarLinha(barco)
-
-  coluna = int(input(f'Insira a coluna que irá o {cont}° Cruzador: '))
-  barco = "Cruzadores"
-  verificarColuna(barco)
-
-  tabuleiro[linha][coluna] = '\033[32mC\033[m'
-  tabuleiro[linha][coluna - 1] = '\033[32mC\033[m'
-  tabuleiro[linha][coluna + 1] = '\033[32mC\033[m'
-
-mostrarTabuleiro(tabuleiro)
+barcoTabuleiro(1,5,"Cruzador")
 
 #Fragatas
 print()
-for cont in range(1,6):
-  linha = int(input(f'Insira a linha que irá o {cont}° Fragata: '))
-  barco = "Fragatas"
-  verificarLinha(barco)
-
-  coluna = int(input(f'Insira a coluna que irá o {cont}° Fragata: '))
-  barco = "Fragatas"
-  verificarColuna(barco)
-
-  tabuleiro[linha][coluna] = '\033[32mC\033[m'
-  #tabuleiro[linha][coluna - 1] = '\033[32;40mC\033[m'
-  tabuleiro[linha][coluna + 1] = '\033[32mC\033[m'
-
-mostrarTabuleiro(tabuleiro)
+barcoTabuleiro(1,6,"Fragata")
