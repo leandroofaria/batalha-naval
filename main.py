@@ -18,8 +18,6 @@ def criarTabuleiro(): #Criar tabuleiro
   return tabuleiro
 
 def mostrarTabuleiro(tabuleiro): #Mostrar tabuleiro
-  # sleep(3)
-
   for linha in range(nLinhas):
     for coluna in range(nColunas):
       print(f'[{tabuleiro[linha][coluna]}]', end= ' ')
@@ -92,6 +90,13 @@ def salvarPosicoes(barco): #Salvar as posições
     posicoes_f.append(temporaria[:])
     print()
 
+def errou_acertou(acertou):
+  if acertou == True:
+    tabuleiro2[escolhaLinha][escolhaColuna] = '\033[1;32mX\033[m'
+  elif acertou == False:
+    tabuleiro2[escolhaLinha][escolhaColuna] = '\033[1;33mO\033[m'
+  mostrarTabuleiro(tabuleiro2)
+
 #variaveis
 posicoes_pa = []
 posicoes_c = []
@@ -102,16 +107,22 @@ txt = '              BEM VINDO AO BATALHA NAVAL              '
 escreva(txt) #Bem vindo
 
 #Tutorial
-# sleep(2) 
-print('''Tutorial:
-- -> Ondas (Espaços Ocultos)
-O -> Lugar Errado
-X -> Acertou uma parte um barco''')
+sleep(1)
+print('''\033[1;35mTutorial:\033[m
+\033[1;36;44m~\033[m -> Ondas (Espaços Ocultos)
+\033[1;33mO\033[m -> Lugar Errado
+\033[1;32mX\033[m -> Acertou uma parte um barco
+
+As coordenadas irão aparecer grudadas.
+            Exemplo: XY
+            Linha = X
+            Coluna = Y''')
+
 linhas(60)
 
 #Tipos de barcos
-# sleep(2)
-print('''Tipos de barcos:
+sleep(3)
+print('''\033[1;35mTipos de barcos:\033[m
 > 3x Porta-Aviões (4 partes) - 30 pontos após destruir
 > 4x Cruzadores   (3 partes) - 20 pontos após destruir
 > 5x Fragatas     (2 partes) - 10 pontos após destruir
@@ -119,8 +130,8 @@ print('''Tipos de barcos:
 linhas(60)
 
 #Regras
-# sleep(2)
-print('''Regras:
+sleep(3)
+print('''\033[1;35mRegras:\033[m
 1- Os pontos só são marcados se acertar todas as partes do barco.
 2- Os barcos só ficarão posicionados na horizontal.
 3- O jogador 1 define as posições do barco e o jogador 2 tenta acertá-lo''')
@@ -139,6 +150,7 @@ nLinhas = nColunas = 15
 tabuleiro = criarTabuleiro()
 tabuleiro2 = criarTabuleiro()
 
+sleep(3)
 #j1
 txt = '''                       JOGADOR 1                       '''
 escreva(txt)
@@ -184,9 +196,13 @@ while turnos>0:
       if posicoes_pa[b][parte] == juntos:
         print('Acertou')
         entrou = True
+        acertou = True
+        errou_acertou(acertou)
         break
 
   if entrou == False:
     print('Errou')
     turnos -= 1
-    print(f'Você tem {turnos} restantes')
+    print(f'Você tem {turnos} turnos restantes')
+    acertou = False
+    errou_acertou(acertou)
