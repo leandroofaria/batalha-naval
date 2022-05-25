@@ -41,14 +41,14 @@ def barcoTabuleiro(inicio,fim,barco): #Escolher as posiçoes no tabuleiro
 
     if barco == "Porta-Aviões":
       tabuleiro[linha][coluna] = '\033[33mP\033[m'
-      tabuleiro[linha][coluna - 1] = '\033[33mP\033[m'
       tabuleiro[linha][coluna + 1] = '\033[33mP\033[m'
       tabuleiro[linha][coluna + 2] = '\033[33mP\033[m'
+      tabuleiro[linha][coluna + 3] = '\033[33mP\033[m'
 
     elif barco == "Cruzador":
       tabuleiro[linha][coluna] = '\033[35mC\033[m'
-      tabuleiro[linha][coluna - 1] = '\033[35mC\033[m'
       tabuleiro[linha][coluna + 1] = '\033[35mC\033[m'
+      tabuleiro[linha][coluna + 2] = '\033[35mC\033[m'
 
     elif barco == "Fragata":
       tabuleiro[linha][coluna] = '\033[32mF\033[m'
@@ -71,19 +71,25 @@ def verificarColuna(barco): #Ver se o input foi correto
 
 def salvarPosicoes(barco): #Salvar as posições
   if barco == "Porta-Aviões":
-    temporaria = [[linha, coluna],[linha, coluna-1],[linha, coluna+1],[linha, coluna+2]]
+    #temporaria = [[linha, coluna],[linha, coluna+1],[linha, coluna+2],[linha, coluna+3]]
+    #print(f'Posições: {temporaria}')
+    #posicoes_pa.append(temporaria)
+    #print()
+    temporaria = [str(linha)+str(coluna), str(linha)+str(coluna+1), str(linha)+str(coluna+2), str(linha)+str(coluna+3)] 
     print(f'Posições: {temporaria}')
-    posicoes_pa.append(temporaria)
+    posicoes_pa.append(temporaria[:])
     print()
+
   elif barco == "Cruzador":
-    temporaria = [[linha, coluna],[linha, coluna-1],[linha, coluna+1]]
+    temporaria = [str(linha)+str(coluna), str(linha)+str(coluna+1), str(linha)+str(coluna+2)] 
     print(f'Posições: {temporaria}')
-    posicoes_c.append(temporaria)
+    posicoes_c.append(temporaria[:])
     print()
+
   elif barco == "Fragata":
-    temporaria = [[linha, coluna],[linha, coluna+1]]
+    temporaria = [str(linha)+str(coluna), str(linha)+str(coluna+1)] 
     print(f'Posições: {temporaria}')
-    posicoes_f.append(temporaria)
+    posicoes_f.append(temporaria[:])
     print()
 
 #variaveis
@@ -166,3 +172,12 @@ mostrarTabuleiro(tabuleiro2)
 
 escolhaLinha = int(input('Linha que você quer jogar a bomba: '))
 escolhaColuna = int(input('Coluna que você quer jogar a bomba: '))
+
+for contb, barco in enumerate(posicoes_pa):
+  for contp, parte in enumerate(posicoes_pa[contb]):
+    for contc, coordenada in enumerate(posicoes_pa[contb][contp]):
+      if str(escolhaLinha) == posicoes_pa[contb][contp][0]:
+        if str(escolhaColuna) == posicoes_pa[contb][contp][1]:
+          print('Voce acertou')
+      else:
+        print('Voce errou')
