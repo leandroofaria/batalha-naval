@@ -166,7 +166,3 @@ mostrarTabuleiro(tabuleiro2)
 
 escolhaLinha = int(input('Linha que você quer jogar a bomba: '))
 escolhaColuna = int(input('Coluna que você quer jogar a bomba: '))
-
-for cont, barco in enumerate(posicoes_pa):
-  print(f'\nBarco {cont}:{posicoes_pa[cont]}')
-  
