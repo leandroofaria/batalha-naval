@@ -158,6 +158,7 @@ barcoTabuleiro(1,5,"Cruzador")
 print()
 barcoTabuleiro(1,6,"Fragata")
 
+#Posições
 print(f'''\n Essas são suas posições:
 Porta-Aviões: {posicoes_pa} 
 Cruzadores:   {posicoes_c}
@@ -170,14 +171,22 @@ escreva(txt)
 
 mostrarTabuleiro(tabuleiro2)
 
-escolhaLinha = int(input('Linha que você quer jogar a bomba: '))
-escolhaColuna = int(input('Coluna que você quer jogar a bomba: '))
+turnos = 20
+while turnos>0:
+  escolhaLinha = int(input('Linha que você quer jogar a bomba: '))
+  escolhaColuna = int(input('Coluna que você quer jogar a bomba: '))
 
-for contb, barco in enumerate(posicoes_pa):
-  for contp, parte in enumerate(posicoes_pa[contb]):
-    for contc, coordenada in enumerate(posicoes_pa[contb][contp]):
-      if str(escolhaLinha) == posicoes_pa[contb][contp][0]:
-        if str(escolhaColuna) == posicoes_pa[contb][contp][1]:
-          print('Voce acertou')
-      else:
-        print('Voce errou')
+  juntos = str(escolhaLinha) + str(escolhaColuna)
+
+  entrou = False
+  for b in range(3):
+    for parte in range(4):
+      if posicoes_pa[b][parte] == juntos:
+        print('Acertou')
+        entrou = True
+        break
+
+  if entrou == False:
+    print('Errou')
+    turnos -= 1
+    print(f'Você tem {turnos} restantes')
