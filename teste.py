@@ -97,6 +97,17 @@ def errou_acertou(acertou):
     tabuleiro2[escolhaLinha][escolhaColuna] = '\033[1;33mO\033[m'
   mostrarTabuleiro(tabuleiro2)
 
+def acertar():
+  linhas(16)
+  print('\n\033[1;32m-> Você acertou!\033[m')
+  print()
+  entrou = True
+  acertou = True
+  errou_acertou(acertou)
+#def acertar_posicao(alcance1, alcance2, tipoBarco):
+
+
+
 #variaveis
 posicoes_pa = []
 posicoes_c = []
@@ -184,29 +195,45 @@ escreva(txt)
 mostrarTabuleiro(tabuleiro2)
 
 turnos = 20
-while turnos>0:
-  escolhaLinha = int(input('\n\033[1;33mLinha que você quer jogar a bomba: \033[m'))
-  escolhaColuna = int(input('\033[1;33mColuna que você quer jogar a bomba: \033[m'))
 
-  juntos = str(escolhaLinha) + str(escolhaColuna)
+  
+def acertou_errou(alcance1, alcance2):
+  global turnos
+  global escolhaLinha
+  global escolhaColuna
 
-  entrou = False
-  for b in range(3):
-    for parte in range(4):
-      if posicoes_pa[b][parte] == juntos:
-        linhas(16)
-        print('\n\033[1;32m-> Você acertou!\033[m')
-        print()
-        entrou = True
-        acertou = True
-        errou_acertou(acertou)
-        break
+  while turnos>0:
+    escolhaLinha = int(input('\n\033[1;33mLinha que você quer jogar a bomba: \033[m'))
+    escolhaColuna = int(input('\033[1;33mColuna que você quer jogar a bomba: \033[m'))
 
-  if entrou == False:
-    linhas(43)
-    print('\n\033[1;31m-> Você errou!\033[m')
-    print()
-    turnos -= 1
-    print(f'\033[1;31m-> Você tem {turnos} tentativas restantes.\033[m')
-    acertou = False
-    errou_acertou(acertou)
+    juntos = str(escolhaLinha) + str(escolhaColuna)
+
+    entrou = False
+    for barco in range(alcance1):
+      for parte in range(alcance2):
+        if (alcance1 == 4 and alcance2 == 3):
+          if (posicoes_pa[barco][parte] == juntos):
+            acertar()
+            break
+        elif (alcance1 == 3) and (alcance2 == 4):
+          if (posicoes_c[barco][parte] == juntos):
+            acertar()
+            break
+        elif (alcance1 == 5) and (alcance2 == 2):
+          if posicoes_f[barco][parte] == juntos:
+            acertar()
+            break
+
+
+    if entrou == False:
+      linhas(43)
+      print('\n\033[1;31m-> Você errou!\033[m')
+      print()
+      turnos -= 1
+      print(f'\033[1;31m-> Você tem {turnos} tentativas restantes.\033[m')
+      acertou = False
+      errou_acertou(acertou)
+
+acertou_errou(4,3)
+acertou_errou(3,4)
+acertou_errou(5,2)
