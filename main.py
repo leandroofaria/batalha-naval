@@ -1,6 +1,3 @@
-from glob import escape
-
-
 def criar_tabuleiro():                          #Criar tabuleiro
   tabuleiro = ['\033[1;36;~\033[m'] * nLinhas
   for linha in range(nLinhas):
@@ -148,6 +145,16 @@ def errou_ou_acertou(acertou):
     tabuleiro2[escolha_linha][escolha_coluna] = '\033[1;33mO\033[m'
   mostrar_tabuleiro(tabuleiro2)
 
+def acertou_barco(linha, coluna):
+  if tabuleiro[linha][coluna] == '\033[1;36;~\033[m':
+    print('Errou')
+    tabuleiro2[linha][coluna] = 'O'
+    return False
+  else:
+    print('Acertou')
+    tabuleiro2[linha][coluna] = 'x'
+    return True
+
 #Programa principal
 nLinhas = nColunas = 20           #Matriz
 turnos = 50                       #Número de turnos pro jogador 2 tentar acertar
@@ -182,19 +189,5 @@ while turnos > 0:
 
   juntos = str(escolha_linha)+str(escolha_coluna)    #Forma uma coordenada em string da posição da bomba
   entrou = False                                     #Flag pro if
-
-  for barco in range(3):                             #Verificar cada barco na lista dos porta aviões
-    for parte in range(4):                           #Verificar cada parte de cada barco
-       if posicoes_pa[barco][parte] == juntos:       #Substituir com um x no tabuleiro caso tenha acertado
-        print('Acertou')
-        entrou = True
-        acertou = True
-        errou_ou_acertou(acertou)
-        break
-
-  if entrou == False:                                #Substituir com um O no tabuleiro caso tenha errado
-    print('Errou')
-    turnos -= 1
-    print(f'Você tem {turnos} turnos restantes')
-    acertou = False
-    errou_ou_acertou(acertou)
+   
+  acertou_barco(escolha_linha,escolha_coluna)        
