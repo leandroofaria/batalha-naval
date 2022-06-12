@@ -140,8 +140,8 @@ def barco_no_tabuleiro(inicio, fim, barco):     #Salvar as posições dos barcos
 
 def acertou_barco(linha, coluna):               #Completa a função de cima, contando as pontuações
   global cont_cruzadores, cont_fragatas, cont_portavioes, pontos, cruzadores_destruidos, portavioes_destruidos, fragatas_destruidos
-  
-  if tabuleiro[linha][coluna] == '\033[1;36;~\033[m':
+
+  if tabuleiro[linha][coluna] == '\033[1;36;44m~\033[m':
     print('Errou')
     tabuleiro2[linha][coluna] = '\033[1;35mO\033[m'
     return False
