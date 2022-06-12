@@ -15,15 +15,15 @@ def barco_no_tabuleiro(inicio, fim, barco):     #Salvar as posições dos barcos
     global linha
     global coluna
 
-    linha = int(input(f'\033[1;33mInsira a linha que irá o {cont}° {barco}: \033[m'))
+    linha = int(input(f'\nInsira a \033[1;33mlinha\033[m que irá o \033[1;33m{cont}° {barco}\033[m: '))
     while 0>linha or linha>=20:
       print('\033[1;31mOpção inválida! O máximo de linhas no tabuleiro são 19!\033[m')
-      linha = int(input(f'\033[1;33mInsira a linha que irá o {barco}\033[m: '))
+      linha = int(input(f'Insira a \033[1;33mlinha\033[m que irá o {barco}: '))
 
-    coluna = int(input(f'\033[1;33mInsira a coluna que irá o {cont}° {barco}\033[m: '))
+    coluna = int(input(f'Insira a \033[1;33mcoluna\033[m que irá o \033[1;33m{cont}° {barco}\033[m: '))
     while 0>coluna or coluna>=20:
       print('\033[1;31mOpção inválida! O máximo de colunas no tabuleiro são 19!\033[m')
-      coluna = int(input(f'\033[1;33mInsira a coluna que irá o {cont}° {barco}\033[m: '))
+      coluna = int(input(f'Insira a \033[1;33mcoluna\033[m que irá o {cont}° {barco}: '))
       
     if barco == "Porta-Aviões":
       if coluna<=16:
@@ -138,15 +138,9 @@ def barco_no_tabuleiro(inicio, fim, barco):     #Salvar as posições dos barcos
         posicoes_f.append(temporaria[:])
         print()
 
-def errou_ou_acertou(acertou):                  #Mostra no tabuleiro se acertou ou errou
-  if acertou == True:
-    tabuleiro2[escolha_linha][escolha_coluna] = '\033[1;32mX\033[m'
-  elif acertou == False:
-    tabuleiro2[escolha_linha][escolha_coluna] = '\033[1;33mO\033[m'
-  mostrar_tabuleiro(tabuleiro2)
-
 def acertou_barco(linha, coluna):               #Completa a função de cima, contando as pontuações
   global cont_cruzadores, cont_fragatas, cont_portavioes, pontos, cruzadores_destruidos, portavioes_destruidos, fragatas_destruidos
+  
   if tabuleiro[linha][coluna] == '\033[1;36;~\033[m':
     print('Errou')
     tabuleiro2[linha][coluna] = '\033[1;35mO\033[m'
