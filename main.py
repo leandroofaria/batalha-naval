@@ -1,3 +1,5 @@
+from time import sleep
+
 def criar_tabuleiro():                          #Criar tabuleiro
   tabuleiro = ['\033[1;36;~\033[m'] * nLinhas
   for linha in range(nLinhas):
@@ -142,11 +144,11 @@ def acertou_barco(linha, coluna):               #Completa a função de cima, co
   global cont_cruzadores, cont_fragatas, cont_portavioes, pontos, cruzadores_destruidos, portavioes_destruidos, fragatas_destruidos
 
   if tabuleiro[linha][coluna] == '\033[1;36;44m~\033[m':
-    print('Errou')
+    print('\033[1;31m\n-> Errou <-\033[m')
     tabuleiro2[linha][coluna] = '\033[1;35mO\033[m'
     return False
   else:
-    print('Acertou')
+    print('\033[1;32m\n-> Acertou <-\033[m')
     tabuleiro2[linha][coluna] = '\033[1;32mX\033[m'
     if tabuleiro[linha][coluna] == '\033[35mC\033[m':
       cont_cruzadores += 1
@@ -179,6 +181,18 @@ def estatisticas():                             #Mostra as estatísticas do jogo
   -> Você destruiu {cruzadores_destruidos} Cruzadores!
   -> Você destriu {fragatas_destruidos} Fragatas!\033[m''')
 
+def escreva(txt):                               #Titulo bonitinhio
+  print('-' * (len(txt)+4))
+  print(f'  {txt}')
+  print('-' * (len(txt)+4))
+  print()
+
+def divisao(num):
+  print()
+  print('\033[1;33m=\033[m'*num)
+  print()
+
+
 #Programa principal
 nLinhas = nColunas = 20           #Matriz
 turnos = 50                       #Número de turnos pro jogador 2 tentar acertar
@@ -191,16 +205,46 @@ temporaria = []                   #Lista temporária com as posições (só pra 
 todas_posicoes = []               #?
 cont_cruzadores = cont_portavioes = cont_fragatas = pontos = cruzadores_destruidos = portavioes_destruidos = fragatas_destruidos = 0         #variaveis
 
+escreva('\033[1;34m                        BEM VINDO AO BATALHA NAVAL              \033[m')
+sleep(1)
+
+
+print('''\033[1;35mTutorial:\033[m
+\033[1;36;44m~\033[m -> Ondas (Espaços Ocultos)
+\033[1;35mO\033[m -> Lugar Errado
+\033[1;32mX\033[m -> Acertou uma parte um barco
+
+As coordenadas irão aparecer grudadas.
+            Exemplo: XY
+            Linha = X
+            Coluna = Y''')
+divisao(60)
+sleep(3)
+print('''\033[1;35mTipos de barcos:\033[m
+> 3x Porta-Aviões (4 partes) - 30 pontos após destruir
+> 4x Cruzadores   (3 partes) - 20 pontos após destruir
+> 5x Fragatas     (2 partes) - 10 pontos após destruir
+''')
+divisao(60)
+sleep(3)
+print('''\033[1;35mRegras:\033[m
+1- Os barcos só ficarão posicionados na horizontal.
+2- O jogador 1 define as posições do barco e o jogador 2 tenta acertá-lo''')
+divisao(60)
+sleep(3)
 
 #FIXME Jogador 1
+escreva('\033[1;35m                                 JOGADOR 1                       \033[m')
 mostrar_tabuleiro(tabuleiro)                #Mostra o tabuleiro
 barco_no_tabuleiro(1,4,"Porta-Aviões")      #Salva as posições dos porta aviões
 barco_no_tabuleiro(1,5,"Cruzador")          #Salva as posições dos cruzadores
 barco_no_tabuleiro(1,6,"Fragata")           #Salva as posicoes dos fragatas
 mostrar_tabuleiro(tabuleiro)                #Mostra o tabuleiro com o barco nas devidas posições
 
+print('\n'*10)
+
 #FIXME Jogador 2
-print('----------------- JOGADOR 2')
+escreva('\033[1;35m                                 JOGADOR 2                       \033[m')
 mostrar_tabuleiro(tabuleiro2)     #Mostra o tabuleiro do segundo jogador (sem os barcos)
 while turnos > 0:
   escolha_linha = int(input('\033[1;33mLinha que você quer jogar a bomba: \033[m'))     #Linha onde vai a bomba
@@ -217,8 +261,10 @@ while turnos > 0:
   entrou = False                                     #Flag pro if
    
   acertou_barco(escolha_linha,escolha_coluna)
+  sleep(1)
   mostrar_tabuleiro(tabuleiro2)
-
+  
+  sleep(1.5)
   desistir = str(input('\033[1;31m\n-> Você deseja desistir? (s/n)\033[m')).strip().lower()[0]
   if desistir in 's':
     turnos = 0
